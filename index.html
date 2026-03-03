@@ -32,12 +32,11 @@
             letter-spacing: 0.05em;
             overflow-x: hidden;
             width: 100%;
-            text-align: center; /* 確保內容置中 */
         }
 
         h1, h2, h3, h4, .logo-text, .stat-number { font-family: 'Noto Serif TC', serif; }
         a { text-decoration: none; color: inherit; transition: 0.3s; }
-        img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+        img { max-width: 100%; height: auto; display: block; }
 
         /* === 導覽列 === */
         header {
@@ -172,92 +171,47 @@
             border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 10px; display: inline-block;
         }
 
-        /* === 專業團隊 (重點修改區) === */
+        /* === 專業團隊 (唯一修改樣式處) === */
         .team-section { background-color: var(--bg-white); }
         .team-container { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 60px; }
-        
         .team-member {
-            background: #fff;
-            padding: 30px;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            text-align: left; /* 內容列表維持左對齊方便閱讀 */
+            display: flex; flex-wrap: wrap; align-items: flex-start; gap: 40px;
+            padding-bottom: 60px; border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        /* 縮小圖片容器並確保與右側文字垂直居中 */
+        .member-img-box { flex: 0 0 120px; } 
+        .member-img-box img { width: 120px; height: 120px; object-fit: cover; border-radius: 4px; }
+        
+        .member-info-box { flex: 1; min-width: 280px; }
+
+        /* 讓名字與職稱在圖片旁邊垂直居中 */
+        .member-name-area { display: flex; flex-direction: column; justify-content: center; height: 120px; margin-bottom: 15px; }
+        
+        @media (max-width: 768px) {
+            .team-member { flexDirection: column; text-align: center; gap: 20px; }
+            .member-name-area { height: auto; text-align: center; }
+            .member-img-box { margin: 0 auto; }
+            .experience-list li { text-align: left; display: inline-block; }
         }
 
-        /* 師傅上方區塊：圖片與職稱姓名 */
-        .member-header {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .member-img-box {
-            flex: 0 0 150px; /* 電腦版固定寬度 */
-        }
-        .member-img-box img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-
-        .member-main-info {
-            flex: 1;
-        }
-
-        .member-title { 
-            font-size: 0.95rem; 
-            color: var(--accent-green); 
-            letter-spacing: 2px; 
-            display: block; 
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-        .member-name { 
-            font-size: 2rem; 
-            font-family: 'Noto Serif TC'; 
-            color: var(--text-primary); 
-            margin-bottom: 0; 
-            font-weight: 600; 
-        }
-
-        /* 師傅詳細資訊 */
+        .member-title { font-size: 0.9rem; color: var(--accent-green); letter-spacing: 2px; display: block; margin-bottom: 5px; }
+        .member-name { font-size: 1.8rem; font-family: 'Noto Serif TC'; color: var(--text-primary); font-weight: 600; margin: 0; }
+        
+        .experience-list { list-style: none; padding: 0; }
+        .experience-list li { position: relative; padding-left: 20px; margin-bottom: 8px; font-size: 0.95rem; }
+        .experience-list li::before { content: '•'; color: var(--accent-green); position: absolute; left: 0; }
+        
         .member-sub-header {
             font-size: 1.1rem; 
             color: var(--text-primary); 
             font-weight: 700; 
             margin-bottom: 15px; 
-            margin-top: 25px; 
+            margin-top: 30px; 
             display: block;
             border-left: 4px solid var(--accent-green);
             padding-left: 12px;
             letter-spacing: 1px;
-        }
-
-        .experience-list { list-style: none; padding: 0; }
-        .experience-list li { position: relative; padding-left: 20px; margin-bottom: 8px; font-size: 0.95rem; color: var(--text-secondary); }
-        .experience-list li::before { content: '•'; color: var(--accent-green); position: absolute; left: 0; }
-
-        /* 手機版 RWD 修改 */
-        @media (max-width: 600px) {
-            .member-header {
-                gap: 15px;
-            }
-            .member-img-box {
-                flex: 0 0 100px; /* 手機版固定圖片為 100px */
-            }
-            .member-img-box img {
-                width: 100px;
-                height: 100px;
-            }
-            .member-title {
-                font-size: 0.85rem;
-                line-height: 1.4;
-            }
-            .member-name {
-                font-size: 1.4rem;
-            }
         }
 
         /* === 數據見證 === */
@@ -277,20 +231,11 @@
             display: flex; flex-wrap: wrap; background: var(--bg-white);
             margin-bottom: 30px; align-items: stretch; border-radius: 4px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.03);
-            text-align: left;
         }
         .loc-info { padding: 40px 30px; flex: 1; min-width: 300px; } 
-        
-        .map-icon-small {
-            display: inline-flex; justify-content: center; align-items: center;
-            width: 28px; height: 28px; background-color: var(--bg-body);
-            color: var(--accent-green); border-radius: 50%; border: 1px solid var(--accent-green);
-            font-size: 0.8rem; transition: 0.3s; vertical-align: middle; margin-left: 8px;
-        }
-
         .loc-name { font-size: 1.4rem; font-family: 'Noto Serif TC'; margin-bottom: 20px; }
         .loc-detail { margin-bottom: 12px; font-size: 0.95rem; color: var(--text-secondary); display: flex; align-items: center; gap: 10px;}
-        .loc-detail i.fas { color: var(--accent-green); min-width: 20px; text-align: center;}
+        .loc-detail i { color: var(--accent-green); min-width: 20px; text-align: center;}
         
         .line-btn-block {
             display: block; background-color: var(--line-color); color: white;
@@ -310,6 +255,10 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.2s, box-shadow 0.2s;
             min-width: 140px; justify-content: center;
         }
+        .social-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 10px rgba(0,0,0,0.1); }
+        .social-btn i.fa-facebook-f { color: var(--fb-color); font-size: 1.1rem; }
+        .social-btn i.fa-instagram { color: var(--ig-color); font-size: 1.1rem; }
+
     </style>
 </head>
 <body>
@@ -347,12 +296,10 @@
     <section id="about" class="about-section">
         <h2 class="section-title">核心理念</h2>
         <div class="about-container">
-            <div class="about-img">
-                <img src="image_2.png" alt="至聖修復室調理示意圖">
-            </div>
+            <div class="about-img"><img src="image_2.png" alt="調理示意圖"></div>
             <div class="about-text">
                 <h3>我們不只修復你的身體，<br>更讓你讀懂自己的身體。</h3>
-                <p class="multi-line-text">
+               <p class="multi-line-text">
                     痠痛往往只是結果 結構的失衡才是原因<br>
                     以臨床實務為核心 透過專業軟組織放鬆<br>
                     與骨架調整 協助每一位走進來的客人<br>
@@ -370,145 +317,104 @@
     <section id="services">
         <h2 class="section-title">調理項目</h2>
         <div class="services-grid">
-            <div class="service-card">
-                <div class="service-title">全身調理</div>
-                <div class="service-desc">調整脊椎架構<br>恢復身體自然排列</div>
-            </div>
-            <div class="service-card">
-                <div class="service-title">運動按摩</div>
-                <div class="service-desc">姿勢動作檢測<br>與深層筋膜處理</div>
-            </div>
-            <div class="service-card">
-                <div class="service-title">肌肉放鬆</div>
-                <div class="service-desc">緊繃肌肉輕柔釋放<br>促進循環流動</div>
-            </div>
-            <div class="service-card">
-                <div class="service-title">睡眠調理</div>
-                <div class="service-desc">肩頸及頭皮筋膜放鬆<br>緩解面部疲勞</div>
-            </div>
-            <div class="service-card">
-                <div class="service-title">骨盆塑身</div>
-                <div class="service-desc">髖部肌肉放鬆與增強代謝<br>提高臀部緊實感</div>
-            </div>
-            <div class="service-card">
-                <div class="service-title">局部舒緩</div>
-                <div class="service-desc">傳統專業拔罐<br>深層滑罐調理</div>
-            </div>
+            <div class="service-card"><div class="service-title">全身調理</div><div class="service-desc">調整脊椎架構<br>恢復身體自然排列</div></div>
+            <div class="service-card"><div class="service-title">運動按摩</div><div class="service-desc">姿勢動作檢測<br>與深層筋膜處理</div></div>
+            <div class="service-card"><div class="service-title">肌肉放鬆</div><div class="service-desc">緊繃肌肉輕柔釋放<br>促進循環流動</div></div>
+            <div class="service-card"><div class="service-title">睡眠調理</div><div class="service-desc">肩頸及頭皮筋膜放鬆<br>緩解面部疲勞</div></div>
+            <div class="service-card"><div class="service-title">骨盆塑身</div><div class="service-desc">髖部肌肉放鬆與增強代謝<br>提高臀部緊實感</div></div>
+            <div class="service-card"><div class="service-title">局部舒緩</div><div class="service-desc">傳統專業拔罐<br>深層滑罐調理</div></div>
         </div>
     </section>
 
     <section id="team" class="team-section">
         <h2 class="section-title">專業師資團隊</h2>
         <div class="team-container">
-            
             <div class="team-member">
-                <div class="member-header">
-                    <div class="member-img-box">
-                        <img src="member1.jpg" alt="修師傅照片">
-                    </div>
-                    <div class="member-main-info">
+                <div class="member-img-box"><img src="member1.jpg" alt="修師傅照片"></div>
+                <div class="member-info-box">
+                    <div class="member-name-area">
                         <span class="member-title">至聖修復室 創辦人</span>
                         <h3 class="member-name">修師傅</h3>
                     </div>
+                    <span class="member-sub-header">【 核心服務項目 】</span>
+                    <ul class="experience-list">
+                        <li><strong>專業運動按摩：</strong>深度釋放緊繃，優化肌肉彈性與活動度。</li>
+                        <li><strong>專項運動恢復與強化：</strong>針對各類運動項目，客製化安排賽後恢復及體能加強訓練。</li>
+                        <li><strong>傷後整復正骨：</strong>以嚴謹手法處理受傷後的結構復位與機能重建。</li>
+                    </ul>
+                    <span class="member-sub-header">【 專業資歷與專長 】</span>
+                    <ul class="experience-list">
+                        <li><strong>臨床資歷：</strong>擁有 5 年以上臨床修復經驗，累計處理個案超過 10,000 小時。</li>
+                        <li><strong>核心專長：</strong><br>全身結構還原調理<br>痛點根源拆解<br>軟組織深度釋放</li>
+                    </ul>
                 </div>
-                
-                <span class="member-sub-header">【 核心服務項目 】</span>
-                <ul class="experience-list">
-                    <li><strong>專業運動按摩：</strong>深度釋放緊繃，優化肌肉彈性與活動度。</li>
-                    <li><strong>專項運動恢復與強化：</strong>針對各類運動項目，客製化安排賽後恢復及體能加強訓練。</li>
-                    <li><strong>傷後整復正骨：</strong>以嚴謹手法處理受傷後的結構復位與機能重建。</li>
-                </ul>
-
-                <span class="member-sub-header">【 專業資歷與專長 】</span>
-                <ul class="experience-list">
-                    <li><strong>臨床資歷：</strong>擁有 5 年以上臨床修復經驗，累計處理個案超過 10,000 小時。</li>
-                    <li><strong>核心專長：</strong><br>全身結構還原調理<br>痛點根源拆解<br>軟組織深度釋放</li>
-                </ul>
             </div>
 
             <div class="team-member">
-                <div class="member-header">
-                    <div class="member-img-box">
-                        <img src="member2.jpg" alt="廖師傅照片">
-                    </div>
-                    <div class="member-main-info">
+                <div class="member-img-box"><img src="member2.jpg" alt="廖師傅照片"></div>
+                <div class="member-info-box">
+                    <div class="member-name-area">
                         <span class="member-title">專業整復師</span>
                         <h3 class="member-name">廖師傅</h3>
                     </div>
+                    <span class="member-sub-header">【 核心服務項目 】</span>
+                    <ul class="experience-list">
+                        <li><strong>基礎肌肉舒緩：</strong>針對全身緊繃的肌群進行放鬆，有效緩解疲勞感與乳酸堆積。</li>
+                    </ul>
+                    <span class="member-sub-header">【 專業資歷與特點 】</span>
+                    <ul class="experience-list">
+                        <li><strong>學經歷背景：</strong>運動科學系畢業、前排球專項選手。</li>
+                        <li><strong>技術特點：</strong><br>單點式深度釋放<br>運動後疲勞消除<br>基礎體能恢復</li>
+                    </ul>
                 </div>
-                
-                <span class="member-sub-header">【 核心服務項目 】</span>
-                <ul class="experience-list">
-                    <li><strong>基礎肌肉舒緩：</strong>針對全身緊繃的肌群進行放鬆，有效緩解疲勞感與乳酸堆積。</li>
-                </ul>
-
-                <span class="member-sub-header">【 專業資歷與特點 】</span>
-                <ul class="experience-list">
-                    <li><strong>學經歷背景：</strong>運動科學系畢業、前排球專項選手。</li>
-                    <li><strong>技術特點：</strong><br>單點式深度釋放<br>運動後疲勞消除<br>基礎體能恢復</li>
-                </ul>
             </div>
 
             <div class="team-member">
-                <div class="member-header">
-                    <div class="member-img-box">
-                        <img src="member3.jpg" alt="蔡師傅照片">
-                    </div>
-                    <div class="member-main-info">
+                <div class="member-img-box"><img src="member3.jpg" alt="蔡師傅照片"></div>
+                <div class="member-info-box">
+                    <div class="member-name-area">
                         <span class="member-title">專業調理師</span>
                         <h3 class="member-name">蔡師傅</h3>
                     </div>
+                    <span class="member-sub-header">【 核心服務項目 】</span>
+                    <ul class="experience-list">
+                        <li><strong>舒緩式肌肉調理：</strong>以不刺激的方式，逐步解開淺層筋膜的緊繃。</li>
+                    </ul>
+                    <span class="member-sub-header">【 核心專長 】</span>
+                    <ul class="experience-list">
+                        <li><strong>臨床優勢：</strong>結合傳統整復觀念與現代 SPA 手法。</li>
+                        <li><strong>專注領域：</strong><br>循環代謝改善<br>淋巴疏通引導<br>舒緩式放鬆</li>
+                    </ul>
                 </div>
-                
-                <span class="member-sub-header">【 核心服務項目 】</span>
-                <ul class="experience-list">
-                    <li><strong>舒緩式肌肉調理：</strong>以不刺激的方式，逐步解開淺層筋膜的緊繃。</li>
-                </ul>
-
-                <span class="member-sub-header">【 核心專長 】</span>
-                <ul class="experience-list">
-                    <li><strong>臨床優勢：</strong>結合傳統整復觀念與現代 SPA 手法。</li>
-                    <li><strong>專注領域：</strong><br>循環代謝改善<br>淋巴疏通引導<br>舒緩式放鬆</li>
-                </ul>
             </div>
-
         </div>
     </section>
 
     <section class="stats-section">
         <h2 class="section-title">數據見證專業</h2>
         <div class="stats-grid">
-            <div class="stat-item">
-                <span class="stat-number">5+</span>
-                <span class="stat-label">年專業臨床修復資歷</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">10,000+</span>
-                <span class="stat-label">小時軟組織處理經驗</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">2,000+</span>
-                <span class="stat-label">位客戶的信任推薦</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">2</span>
-                <span class="stat-label">間直營服務據點<br><small style="font-size:0.8em; color:#888;">(高雄、彰化)</small></span>
-            </div>
+            <div class="stat-item"><span class="stat-number">5+</span><span class="stat-label">年專業臨床修復資歷</span></div>
+            <div class="stat-item"><span class="stat-number">10,000+</span><span class="stat-label">小時軟組織處理經驗</span></div>
+            <div class="stat-item"><span class="stat-number">2,000+</span><span class="stat-label">位客戶的信任推薦</span></div>
+            <div class="stat-item"><span class="stat-number">2</span><span class="stat-label">間直營服務據點</span></div>
         </div>
     </section>
 
     <section id="location" class="location-section">
+        
         <div class="locations-wrapper">
             <div class="location-item">
                 <div class="loc-info">
                     <div class="loc-name">高雄館</div>
                     <div class="loc-detail">
-                        <i class="fas fa-map-marker-alt"></i> 
-                        <span>高雄市三民區遼寧二街201號1樓</span>
-                        <a href="#" target="_blank" class="map-icon-small"><i class="fas fa-map-marked-alt"></i></a>
+                        <i class="fas fa-map-marker-alt fa-icon"></i> 
+                        <span class="address-text">高雄市三民區遼寧二街201號1樓</span>
+                        <a href="https://www.google.com/maps/place/%E8%87%B3%E8%81%96%E4%BF%AE%E5%BE%A9%E5%AE%A4+%E9%AB%98%E9%9B%84%E9%A4%A8%7C+%E4%B8%80%E5%B0%8D%E4%B8%80%E9%A0%90%E7%B4%84%E5%88%B6+%7C+%E6%95%B4%E5%BE%A9%E6%8E%A8%E6%8B%BF+%7C+%E9%81%8B%E5%8B%95%E6%8C%89%E6%91%A9+%7C+%E8%82%8C%E8%82%89%E6%94%BE%E9%AC%86/@22.6431257,120.2951133,16.2z/data=!4m16!1m9!3m8!1s0x346e04f5f812e4f5:0x42952d887a1ff54c!2zODA36auY6ZuE5biC5LiJ5rCR5Y2A6YG85a-n5LqM6KGXMjAx6Jmf!3b1!8m2!3d22.6429963!4d120.2974744!10e5!16s%2Fg%2F11wv885n04!3m5!1s0x346e05c24f7d1605:0x28324bac040f2ae!8m2!3d22.6429963!4d120.2974744!16s%2Fg%2F11wxppw6jk?authuser=0&entry=ttu&g_ep=EgoyMDI2MDEyOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="map-icon-small" title="開啟 Google 地圖">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </a>
                     </div>
-                    <div class="loc-detail"><i class="fas fa-clock"></i> 平日 10:00 - 22:00 (預約制)</div>
-                    <div class="loc-detail"><i class="fas fa-phone"></i> 0917-939-229</div>
+                    <div class="loc-detail"><i class="fas fa-clock fa-icon"></i> 平日 10:00 - 22:00 (預約制)</div>
+                    <div class="loc-detail"><i class="fas fa-phone fa-icon"></i> 0917-939-229</div>
                     <a href="https://lin.ee/MfMaLGa" class="line-btn-block" target="_blank"><i class="fab fa-line"></i> 加入 LINE 預約</a>
                 </div>
             </div>
@@ -516,13 +422,15 @@
                 <div class="loc-info">
                     <div class="loc-name">彰化館</div>
                     <div class="loc-detail">
-                        <i class="fas fa-map-marker-alt"></i> 
-                        <span>彰化縣彰化市太平街188號3樓</span>
-                        <a href="#" target="_blank" class="map-icon-small"><i class="fas fa-map-marked-alt"></i></a>
+                        <i class="fas fa-map-marker-alt fa-icon"></i> 
+                        <span class="address-text">彰化縣彰化市太平街188號3樓</span>
+                        <a href="https://www.google.com/maps/place/%E8%87%B3%E8%81%96%E4%BF%AE%E5%BE%A9%E5%AE%A4+%7C+%E4%B8%80%E5%B0%8D%E4%B8%80%E9%A0%90%E7%B4%84%E5%88%B6+%7C+%E6%95%B4%E5%BE%A9%E6%8E%A8%E6%8B%BF+%7C+%E9%81%8B%E5%8B%95%E6%8C%89%E6%91%A9+%7C+%E8%82%8C%E8%82%89%E6%94%BE%E9%AC%86(%E6%AF%8F%E6%9C%88%E7%87%9F%E6%A5%AD%E6%99%82%E9%96%93%E5%85%AC%E5%91%8A%E5%9C%A8ig%EF%BC%89/@24.0780351,120.5370846,17z/data=!3m1!4b1!4m6!3m5!1s0x3469390000483ab1:0xced11efcfd2377cb!8m2!3d24.0780302!4d120.5396595!16s%2Fg%2F11v_46x0tz?authuser=0&entry=ttu&g_ep=EgoyMDI2MDEyOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="map-icon-small" title="開啟 Google 地圖">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </a>
                     </div>
-                    <div class="loc-detail"><i class="fas fa-building"></i> 瘋潮玩具 HIVE TOY 樓上</div>
-                    <div class="loc-detail"><i class="fas fa-clock"></i> 每月開館日請參閱官方 IG 貼文(預約制)</div>
-                    <div class="loc-detail"><i class="fas fa-phone"></i> 0917-939-229</div>
+                    <div class="loc-detail"><i class="fas fa-building fa-icon"></i> 瘋潮玩具 HIVE TOY 樓上</div>
+                    <div class="loc-detail"><i class="fas fa-clock fa-icon"></i> 每月開館日請參閱官方 IG 貼文(預約制)</div>
+                    <div class="loc-detail"><i class="fas fa-phone fa-icon"></i> 0917-939-229</div>
                     <a href="https://lin.ee/vgHDfQT" class="line-btn-block" target="_blank"><i class="fab fa-line"></i> 加入 LINE 預約</a>
                 </div>
             </div>
@@ -531,11 +439,14 @@
 
     <footer>
         <div class="social-btn-group">
-            <a href="https://www.facebook.com/profile.php?id=61570899987948" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i> 至聖修復室</a>
-            <a href="https://www.instagram.com/zhisheng._.22" target="_blank" class="social-btn"><i class="fab fa-instagram"></i> 至聖修復室</a>
+            <a href="https://www.facebook.com/profile.php?id=61570899987948" target="_blank" class="social-btn">
+                <i class="fab fa-facebook-f"></i> 至聖修復室
+            </a>
+            <a href="https://www.instagram.com/zhisheng._.22?igsh=cWZnY3l0MTFtZ2Nq&utm_source=qr" target="_blank" class="social-btn">
+                <i class="fab fa-instagram"></i> 至聖修復室
+            </a>
         </div>
-        <p>© 2026 至聖修復室 Zhisheng Recovery Room</p>
+        <p style="margin-top: 20px; font-size: 0.9rem;">© 2026 至聖修復室 Zhisheng Recovery Room</p>
     </footer>
-
 </body>
 </html>
